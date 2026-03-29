@@ -5,11 +5,12 @@ import re
 import io
 
 class HustleTaxAnalyzer:
-    def __init__(self, pdf_file, my_other_numbers, my_banks, password=None):
+    def __init__(self, pdf_file, my_other_numbers, my_banks, my_names, password=None):
         self.pdf_file = pdf_file
         # Extract last 3 digits of phone numbers to catch masked IDs like ...554
         self.personal_ids = [str(n).strip()[-3:] for n in my_other_numbers if len(str(n)) >= 3]
         self.bank_keywords = [b.lower().strip() for b in my_banks if b.strip()]
+        self.personal_names = [n.lower().strip() for n in my_names if n.strip()]
         self.password = password
 
     def process_statement(self):
@@ -73,14 +74,27 @@ class HustleTaxAnalyzer:
 
                 # We only care about completed income (positive amounts)
                 if status == 'completed' and amt > 0:
+                    # Logic for Asset Transfer (Bank)
                     is_bank = any(bank in content for bank in self.bank_keywords)
-                    is_self = any(content.endswith(ide) for ide in self.personal_ids)
+
+                    # Logic for Asset Transfer (Self - Name Match)
+                    is_self_name = any(name in content for name in self.personal_names)
+
+                    # Logic for Asset Transfer (Mobile - Phone ID Match)
+                    is_self_phone = any(content.endswith(ide) for ide in self.personal_ids)
+
+                    # Logic for Loan/Savings
                     is_loan = any(loan in content for loan in ['m-shwari', 'fuliza', 'kcb m-pesa', 'loan'])
 
                     category = 'TAXABLE INCOME'
-                    if is_bank: category = 'ASSET TRANSFER (BANK)'
-                    elif is_self: category = 'ASSET TRANSFER (MOBILE)'
-                    elif is_loan: category = 'LOAN/SAVINGS'
+                    if is_bank:
+                        category = 'ASSET TRANSFER (BANK)'
+                    elif is_self_name:
+                        category = 'ASSET TRANSFER (SELF-NAME)'
+                    elif is_self_phone:
+                        category = 'ASSET TRANSFER (MOBILE-ID)'
+                    elif is_loan:
+                        category = 'LOAN/SAVINGS'
 
                     rows.append({
                         'Month': tx['Date'][:7],
@@ -114,7 +128,10 @@ with st.sidebar:
 
     st.divider()
 
-    st.info("Define your accounts to exclude them from 'Taxable Income'.")
+    st.info("Define your accounts and names to exclude them from 'Taxable Income'.")
+
+    name_input = st.text_input("Your Registered Names (comma separated)",
+                               "John Doe")
 
     bank_input = st.text_area("Your Bank Names (comma separated)",
                              "kcb, sidian, equity, i&m, co-op, absa, dtb, ncba, family")
@@ -122,13 +139,14 @@ with st.sidebar:
     phone_input = st.text_area("Your Other Phone Numbers (comma separated)",
                               "254712345678")
 
-    banks = bank_input.split(",")
-    phones = phone_input.split(",")
+    names = [n.strip() for n in name_input.split(",") if n.strip()]
+    banks = [b.strip() for b in bank_input.split(",") if b.strip()]
+    phones = [p.strip() for p in phone_input.split(",") if p.strip()]
 
 uploaded_file = st.file_uploader("Choose your M-Pesa Statement (PDF)", type="pdf")
 
 if uploaded_file is not None:
-    analyzer = HustleTaxAnalyzer(uploaded_file, phones, banks, pdf_password)
+    analyzer = HustleTaxAnalyzer(uploaded_file, phones, banks, names, pdf_password)
 
     with st.spinner('Analyzing transactions...'):
         df, error = analyzer.process_statement()
