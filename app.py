@@ -5,17 +5,27 @@ import re
 import io
 
 class HustleTaxAnalyzer:
-    def __init__(self, pdf_file, my_other_numbers, my_banks):
+    def __init__(self, pdf_file, my_other_numbers, my_banks, password=None):
         self.pdf_file = pdf_file
         # Extract last 3 digits of phone numbers to catch masked IDs like ...554
         self.personal_ids = [str(n).strip()[-3:] for n in my_other_numbers if len(str(n)) >= 3]
         self.bank_keywords = [b.lower().strip() for b in my_banks if b.strip()]
+        self.password = password
 
     def process_statement(self):
         # 1. Extract Text from the uploaded buffer
         text = ""
         try:
             reader = pypdf.PdfReader(self.pdf_file)
+            if reader.is_encrypted:
+                if self.password:
+                    try:
+                        reader.decrypt(self.password)
+                    except Exception as e:
+                        return None, f"Incorrect password or decryption error: {e}"
+                else:
+                    return None, "This PDF is encrypted. Please provide the password in the sidebar."
+
             for page in reader.pages:
                 text += page.extract_text() + "\n"
         except Exception as e:
@@ -80,7 +90,11 @@ class HustleTaxAnalyzer:
                         'Description': content.upper()
                     })
 
-        df = pd.DataFrame(rows)
+        # Define the structure even if rows is empty to prevent KeyError later
+        df = pd.DataFrame(rows, columns=['Month', 'Date', 'Category', 'Amount', 'Description'])
+        if df.empty:
+            return df, "No relevant income transactions found after filtering."
+
         return df, None
 
 # --- STREAMLIT UI ---
@@ -94,6 +108,12 @@ leaving only your **estimated taxable income**.
 
 with st.sidebar:
     st.header("Settings")
+
+    st.info("M-Pesa statements are usually encrypted with your ID or Document Number.")
+    pdf_password = st.text_input("PDF Password (if encrypted)", type="password")
+
+    st.divider()
+
     st.info("Define your accounts to exclude them from 'Taxable Income'.")
 
     bank_input = st.text_area("Your Bank Names (comma separated)",
@@ -108,14 +128,16 @@ with st.sidebar:
 uploaded_file = st.file_uploader("Choose your M-Pesa Statement (PDF)", type="pdf")
 
 if uploaded_file is not None:
-    analyzer = HustleTaxAnalyzer(uploaded_file, phones, banks)
+    analyzer = HustleTaxAnalyzer(uploaded_file, phones, banks, pdf_password)
 
     with st.spinner('Analyzing transactions...'):
         df, error = analyzer.process_statement()
 
-    if error:
-        st.error(error)
-    else:
+    # We display data if we have it, even if there's a non-critical error (like "No relevant income found")
+    if error and (df is None or df.empty):
+        st.warning(error)
+
+    if df is not None and not df.empty:
         # --- Metrics ---
         total_income = df[df['Category'] == 'TAXABLE INCOME']['Amount'].sum()
         other_transfers = df[df['Category'] != 'TAXABLE INCOME']['Amount'].sum()
@@ -127,7 +149,10 @@ if uploaded_file is not None:
         # --- Visualization ---
         st.subheader("Income by Month")
         monthly_data = df[df['Category'] == 'TAXABLE INCOME'].groupby('Month')['Amount'].sum()
-        st.bar_chart(monthly_data)
+        if not monthly_data.empty:
+            st.bar_chart(monthly_data)
+        else:
+            st.info("No taxable income found to display in the chart.")
 
         # --- Data Table ---
         st.subheader("Detailed Breakdown")
