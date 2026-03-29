@@ -13,6 +13,17 @@ class HustleTaxAnalyzer:
         self.personal_names = [n.lower().strip() for n in my_names if n.strip()]
         self.password = password
 
+    def identify_gambling(self, details, amount_in):
+        details = details.lower()
+        gambling_keywords = ['paystack', 'betika', 'sportpesa', 'betway', '1xbet', 'odibets']
+
+        if any(ref in details for ref in gambling_keywords):
+            if amount_in > 0:
+                return 'Exempt Income (Withholding Tax Paid)'
+            else:
+                return 'Personal Expense (Non-Deductible)'
+        return None
+
     def process_statement(self):
         # 1. Extract Text from the uploaded buffer
         text = ""
@@ -74,6 +85,9 @@ class HustleTaxAnalyzer:
 
                 # We only care about completed income (positive amounts)
                 if status == 'completed' and amt > 0:
+                    # Check for Gambling first as it might overlap with other keywords
+                    gambling_cat = self.identify_gambling(content, amt)
+
                     # Logic for Asset Transfer (Bank)
                     is_bank = any(bank in content for bank in self.bank_keywords)
 
@@ -87,7 +101,9 @@ class HustleTaxAnalyzer:
                     is_loan = any(loan in content for loan in ['m-shwari', 'fuliza', 'kcb m-pesa', 'loan'])
 
                     category = 'TAXABLE INCOME'
-                    if is_bank:
+                    if gambling_cat:
+                        category = gambling_cat
+                    elif is_bank:
                         category = 'ASSET TRANSFER (BANK)'
                     elif is_self_name:
                         category = 'ASSET TRANSFER (SELF-NAME)'
