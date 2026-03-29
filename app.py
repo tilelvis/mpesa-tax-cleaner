@@ -12,6 +12,12 @@ class HustleTaxAnalyzer:
         self.bank_keywords = [b.lower().strip() for b in my_banks if b.strip()]
         self.personal_names = [n.lower().strip() for n in my_names if n.strip()]
         self.password = password
+        # Common lenders in Kenya
+        self.lender_list = [
+            'chelete', 'zenka', 'tala', 'branch', 'm-shwari',
+            'fuliza', 'kcb mpesa', 'zash', 'okash', 'hustler fund',
+            'loan', 'kcb m-pesa'
+        ]
 
     def identify_gambling(self, details, amount_in):
         details = details.lower()
@@ -85,7 +91,7 @@ class HustleTaxAnalyzer:
 
                 # We only care about completed income (positive amounts)
                 if status == 'completed' and amt > 0:
-                    # Check for Gambling first as it might overlap with other keywords
+                    # Check for Gambling first
                     gambling_cat = self.identify_gambling(content, amt)
 
                     # Logic for Asset Transfer (Bank)
@@ -98,7 +104,7 @@ class HustleTaxAnalyzer:
                     is_self_phone = any(content.endswith(ide) for ide in self.personal_ids)
 
                     # Logic for Loan/Savings
-                    is_loan = any(loan in content for loan in ['m-shwari', 'fuliza', 'kcb m-pesa', 'loan'])
+                    is_loan = any(lender in content for lender in self.lender_list)
 
                     category = 'TAXABLE INCOME'
                     if gambling_cat:
