@@ -1,4 +1,4 @@
-# 🇰🇪 KRA Mpesa Tax Sanitizer
+# 🇰🇪 KRA Hustle-Tax Sanitizer
 
 Transform your M-Pesa statements into a clear report of your estimated taxable income. This application filters out bank transfers, loans, and other non-taxable transactions to help you manage your taxes.
 
@@ -27,10 +27,12 @@ Transform your M-Pesa statements into a clear report of your estimated taxable i
   - **Asset Transfer (Mobile)**: Transfers to and from your other mobile numbers or yourself.
   - **Loan/Credit (Non-Taxable)**: Transactions involving overdrafts, credit, M-Shwari, Fuliza, KCB M-Pesa, Tala, Zenka, etc.
   - **Exempt (Gambling Winnings)**: Transactions with withholding tax already paid (e.g., Sportpesa, Betika).
-- **Interactive Visualizations**: Income breakdown charts.
+- **Hustle vs. Noise Analysis**: Advanced metrics dashboard showing "Gross Money In" versus "Net Taxable Base" using the 'Rule of Thumb' logic.
+- **Interactive Visualizations**: Dynamic Plotly pie charts and bar charts for source and monthly trend analysis.
+- **Interactive iTax Checklist**: A final preparation checklist to ensure data accuracy before filing on itax.kra.go.ke.
+- **Educational Insights**: Built-in guides explaining Kenyan tax rules (e.g., the 288k rule and why loans are non-taxable).
 - **Customizable Filters**: Exclude specific bank names, phone numbers, and registered names via the sidebar.
-- **Tax Estimate**: Provides a rough estimate of tax owed based on standard taxable income thresholds.
-- **Data Export**: Download your sanitized transaction report as a CSV file.
+- **Data Export**: Download your sanitized audit report as a CSV file for long-term record keeping.
 
 ## Getting Started
 
@@ -70,7 +72,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support & Engagement
 
 If you find this tool helpful, please consider:
-- ⭐ **Starring** the repository on [GitHub](https://github.com/tilelvis)
+- ⭐ **Starring** the repository on [GitHub](https://github.com/elviskiprono)
 - 🤝 **Engaging** with the repository through issues or pull requests.
 
-*Developed by Elvis Tile.*
+*Developed by Elvis Kiprono.*
