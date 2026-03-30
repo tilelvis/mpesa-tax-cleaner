@@ -2,6 +2,21 @@
 
 Transform your M-Pesa statements into a clear report of your estimated taxable income. This application filters out bank transfers, loans, and other non-taxable transactions to help you manage your taxes.
 
+## ⚠️ Important Disclaimer & Data Privacy
+
+### **1. Data Privacy & Passwords**
+* **Local Processing:** This application processes your M-Pesa statements locally in your browser/server session.
+* **No Storage:** Your PDF passwords and statement data are **not stored** on any database or shared with third parties. Once the session is closed, the data is wiped.
+* **Security:** Avoid uploading statements on public or shared computers.
+
+### **2. Accuracy of Classification**
+* **Automated Tool:** This is an AI-assisted categorization tool designed to simplify KRA filing. It uses keyword matching to identify banks, loans, and gambling transactions.
+* **User Responsibility:** While the logic is tuned for Kenyan M-Pesa formats, it is **not 100% infallible**.
+* **Verification Required:** You are legally responsible for the accuracy of your KRA returns. Please verify the "Taxable Income" list manually before submitting your final return on iTax.
+
+### **3. Not Financial Advice**
+* This tool is for analytical purposes only and does not constitute professional tax or legal advice.
+
 ## Features
 
 - **Multi-Format Support**: Automatically extracts transaction data from both **M-Pesa PDF statements** and **CSV reports**.

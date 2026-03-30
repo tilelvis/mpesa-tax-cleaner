@@ -129,6 +129,26 @@ class HustleTaxAnalyzer:
 # --- STREAMLIT UI ---
 st.set_page_config(page_title="KRA Hustle-Tax Sanitizer", page_icon="🇰🇪")
 
+def show_disclaimer():
+    with st.expander("⚠️ Important Disclaimer & Data Privacy", expanded=False):
+        st.markdown("""
+        ### **1. Data Privacy & Passwords**
+        * **Local Processing:** This application processes your M-Pesa statements locally in your browser/server session.
+        * **No Storage:** Your PDF passwords and statement data are **not stored** on any database or shared with third parties. Once the session is closed, the data is wiped.
+        * **Security:** Avoid uploading statements on public or shared computers.
+
+        ### **2. Accuracy of Classification**
+        * **Automated Tool:** This is an AI-assisted categorization tool designed to simplify KRA filing. It uses keyword matching to identify banks, loans, and gambling transactions.
+        * **User Responsibility:** While the logic is tuned for Kenyan M-Pesa formats, it is **not 100% infallible**.
+        * **Verification Required:** You are legally responsible for the accuracy of your KRA returns. Please verify the "Taxable Income" list manually before submitting your final return on iTax.
+
+        ### **3. Not Financial Advice**
+        * This tool is for analytical purposes only and does not constitute professional tax or legal advice.
+        """)
+
+# Call the function at the top of your app
+show_disclaimer()
+
 st.title("🇰🇪 KRA Hustle-Tax Sanitizer")
 st.markdown("""
 Upload your M-Pesa **PDF statement** or **CSV report** to filter out bank transfers and loans,
