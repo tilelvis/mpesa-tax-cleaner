@@ -1,4 +1,4 @@
-# 🇰🇪 KRA Hustle-Tax Sanitizer
+# 🇰🇪 KRA Mpesa Tax Sanitizer
 
 Transform your M-Pesa statements into a clear report of your estimated taxable income. This application filters out bank transfers, loans, and other non-taxable transactions to help you manage your taxes.
 
@@ -63,6 +63,14 @@ The app will open in your default web browser.
 3. **Analyze Results**: View your total money in, clean taxable income, and tax estimates.
 4. **Download Report**: Use the "Download Sanitized Report as CSV" button to save your data for your records or tax filing.
 
-## Note on Privacy
+## License
 
-This application processes your data locally in your browser/server and does not store your financial data. Ensure you are running it in a secure environment.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Support & Engagement
+
+If you find this tool helpful, please consider:
+- ⭐ **Starring** the repository on [GitHub](https://github.com/tilelvis)
+- 🤝 **Engaging** with the repository through issues or pull requests.
+
+*Developed by Elvis Tile.*
