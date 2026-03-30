@@ -72,7 +72,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Support & Engagement
 
 If you find this tool helpful, please consider:
-- ⭐ **Starring** the repository on [GitHub](https://github.com/elviskiprono)
+- ⭐ **Starring** the repository on [GitHub](https://github.com/)
 - 🤝 **Engaging** with the repository through issues or pull requests.
 
-*Developed by Elvis Kiprono.*
+*Developed by an Open Source Contributor.*

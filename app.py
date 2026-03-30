@@ -8,8 +8,8 @@ import plotly.express as px
 DEFAULT_BANKS = 'im bank, i&m, sidian, kcb, equity, co-op, absa, stanchart, ncba, family, transfer from bank'
 DEFAULT_LOANS = 'overdraft, credit, chelete, zenka, tala, branch, m-shwari, fuliza, kcb mpesa, unaitas, advance poa, loan, kcb m-pesa, hustler fund, zash, okash'
 DEFAULT_GAMBLING = '1xbet, paystack, betika, sportpesa, odibets, betway, b2c'
-DEFAULT_PHONES = '554, 534'
-DEFAULT_NAMES = 'elvis kiprono'
+DEFAULT_PHONES = '123, 456'
+DEFAULT_NAMES = 'Your Name'
 
 class HustleTaxAnalyzer:
     def __init__(self, my_other_numbers, my_banks, my_names, my_loans, my_gambling, password=None):
@@ -183,9 +183,9 @@ def main():
 
         st.divider()
         st.markdown("""
-        ### 👨‍💻 Developed by Elvis Kiprono
+        ### 👨‍💻 Open-Source Project
         If this tool helps you, please consider:
-        - ⭐ **Leaving a star** on [GitHub](https://github.com/elviskiprono)
+        - ⭐ **Leaving a star** on [GitHub](https://github.com/)
         - 🤝 **Engaging** with the repository
 
         *Free to use under the MIT License.*

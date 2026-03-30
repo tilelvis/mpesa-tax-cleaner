@@ -6,9 +6,9 @@ from unittest.mock import MagicMock, patch
 
 class TestHustleTaxAnalyzer(unittest.TestCase):
     def setUp(self):
-        self.my_names = ["Elvis Kiprono"]
+        self.my_names = ["Test User"]
         self.my_banks = ["KCB", "Equity"]
-        self.my_phones = ["254712345678"]
+        self.my_phones = ["123456"]
         self.my_loans = ["M-SHWARI", "FULIZA"]
         self.my_gambling = ["BETIKA", "SPORTPESA"]
 
@@ -21,7 +21,7 @@ class TestHustleTaxAnalyzer(unittest.TestCase):
         mock_page.extract_text.return_value = """
         AQ12345678 2023-01-01 10:00:00 Received from JOHN DOE Completed 5,000.00 10,000.00
         BQ12345678 2023-01-02 11:00:00 Pay Bill to KCB BANK Completed 1,000.00 9,000.00
-        CQ12345678 2023-01-03 12:00:00 Received from 254712345678 Completed 2,000.00 11,000.00
+        CQ12345678 2023-01-03 12:00:00 Received from 123456 Completed 2,000.00 11,000.00
         DQ12345678 2023-01-04 13:00:00 M-SHWARI LOAN Received Completed 500.00 11,500.00
         EQ12345678 2023-01-05 14:00:00 Received from SPORTPESA Completed 1,500.00 13,000.00
         FQ12345678 2023-01-06 15:00:00 Sent to JANE DOE Completed 3,000.00 10,000.00
