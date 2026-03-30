@@ -8,8 +8,8 @@ import io
 DEFAULT_BANKS = 'im bank, i&m, sidian, kcb, equity, co-op, absa, stanchart, ncba, family, transfer from bank'
 DEFAULT_LOANS = 'overdraft, credit, chelete, zenka, tala, branch, m-shwari, fuliza, kcb mpesa, unaitas, advance poa, loan, kcb m-pesa, hustler fund, zash, okash'
 DEFAULT_GAMBLING = '1xbet, paystack, betika, sportpesa, odibets, betway, b2c'
-DEFAULT_PHONES = '554, 534'
-DEFAULT_NAMES = 'elvis kiprono'
+DEFAULT_PHONES = '**554, **534'
+DEFAULT_NAMES = 'Your mpesa name'
 
 class HustleTaxAnalyzer:
     def __init__(self, my_other_numbers, my_banks, my_names, my_loans, my_gambling, password=None):
