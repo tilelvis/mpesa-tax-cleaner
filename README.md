@@ -26,8 +26,8 @@ Transform your M-Pesa statements into a clear report of your estimated taxable i
   - **Asset Transfer (Bank)**: Transfers to and from your bank accounts.
   - **Asset Transfer (Mobile)**: Transfers to and from your other mobile numbers or yourself.
   - **Loan/Credit (Non-Taxable)**: Transactions involving overdrafts, credit, M-Shwari, Fuliza, KCB M-Pesa, Tala, Zenka, etc.
-  - **Exempt (Gambling Winnings)**: Transactions with withholding tax already paid (e.g., Sportpesa, Betika).
-- **Hustle vs. Noise Analysis**: Advanced metrics dashboard showing "Gross Money In" versus "Net Taxable Base" using the 'Rule of Thumb' logic.
+  - **Exempt **: Transactions with withholding tax already paid (e.g., Sportpesa, Betika).
+- **Taxable vs. Noise Analysis**: Advanced metrics dashboard showing "Gross Money In" versus "Net Taxable Base" using the 'Rule of Thumb' logic.
 - **Interactive Visualizations**: Dynamic Plotly pie charts and bar charts for source and monthly trend analysis.
 - **Interactive iTax Checklist**: A final preparation checklist to ensure data accuracy before filing on itax.kra.go.ke.
 - **Educational Insights**: Built-in guides explaining Kenyan tax rules (e.g., the 288k rule and why loans are non-taxable).
