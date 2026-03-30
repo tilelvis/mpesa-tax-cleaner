@@ -183,9 +183,9 @@ def main():
 
         st.divider()
         st.markdown("""
-        ### 👨‍💻 Open-Source Project
+        ### 👨‍💻 Developed by Elvis Tile
         If this tool helps you, please consider:
-        - ⭐ **Leaving a star** on [GitHub](https://github.com/)
+        - ⭐ **Leaving a star** on [GitHub](https://github.com/tilelvis/hustlampesa)
         - 🤝 **Engaging** with the repository
 
         *Free to use under the MIT License.*
