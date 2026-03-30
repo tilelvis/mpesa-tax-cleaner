@@ -1,4 +1,4 @@
-# 🇰🇪 KRA Hustle-Tax Sanitizer
+# 🇰🇪 KRA Mpesa-Tax Sanitizer
 
 Transform your M-Pesa statements into a clear report of your estimated taxable income. This application filters out bank transfers, loans, and other non-taxable transactions to help you manage your taxes.
 
