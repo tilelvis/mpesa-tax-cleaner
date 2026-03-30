@@ -3,12 +3,13 @@ import pypdf
 import pandas as pd
 import re
 import io
+import plotly.express as px
 
 DEFAULT_BANKS = 'im bank, i&m, sidian, kcb, equity, co-op, absa, stanchart, ncba, family, transfer from bank'
 DEFAULT_LOANS = 'overdraft, credit, chelete, zenka, tala, branch, m-shwari, fuliza, kcb mpesa, unaitas, advance poa, loan, kcb m-pesa, hustler fund, zash, okash'
 DEFAULT_GAMBLING = '1xbet, paystack, betika, sportpesa, odibets, betway, b2c'
-DEFAULT_PHONES = '**554, **534'
-DEFAULT_NAMES = 'Your mpesa name'
+DEFAULT_PHONES = '123, 456'
+DEFAULT_NAMES = 'Your Name'
 
 class HustleTaxAnalyzer:
     def __init__(self, my_other_numbers, my_banks, my_names, my_loans, my_gambling, password=None):
@@ -136,24 +137,23 @@ class HustleTaxAnalyzer:
             return None, f"Error reading CSV: {e}"
 
 def show_disclaimer():
-    with st.expander("⚠️ Important Disclaimer & Data Privacy", expanded=False):
+    with st.expander("⚖️ Professional Disclaimer & Data Privacy Notice", expanded=False):
         st.markdown("""
-        ### **1. Data Privacy & Passwords**
-        * **Local Processing:** This application processes your M-Pesa statements locally in your browser/server session.
-        * **No Storage:** Your PDF passwords and statement data are **not stored** on any database or shared with third parties. Once the session is closed, the data is wiped.
-        * **Security:** Avoid uploading statements on public or shared computers.
+        ### **1. Data Privacy & Local Processing**
+        * **Client-Side Simulation:** This application processes all M-Pesa statement data locally within your browser/server session.
+        * **Zero Retention:** Your PDF passwords, financial transactions, and identifiers are **not stored**, cached, or transmitted to any external database. All data is purged upon session termination.
+        * **Best Practice:** For maximum security, use this tool on a private device and a secure network.
 
-        ### **2. Accuracy of Classification**
-        * **Automated Tool:** This is an AI-assisted categorization tool designed to simplify KRA filing. It uses keyword matching to identify banks, loans, and gambling transactions.
-        * **User Responsibility:** While the logic is tuned for Kenyan M-Pesa formats, it is **not 100% infallible**.
-        * **Verification Required:** You are legally responsible for the accuracy of your KRA returns. Please verify the "Taxable Income" list manually before submitting your final return on iTax.
+        ### **2. Analytical Limitation**
+        * **Heuristic Classification:** This tool utilizes an AI-assisted heuristic engine to categorize transactions. While it is optimized for the standard Kenyan M-Pesa statement format, it is **not 100% infallible**.
+        * **Verification Obligation:** You remain legally responsible for the accuracy of any returns submitted to the Kenya Revenue Authority (KRA). This tool is designed to assist in organization, not to replace professional audit or manual verification.
 
-        ### **3. Not Financial Advice**
-        * This tool is for analytical purposes only and does not constitute professional tax or legal advice.
+        ### **3. No Professional Financial Advice**
+        * The content, metrics, and estimates provided are for **analytical and educational purposes only**. They do not constitute professional tax, legal, or financial advice. Please consult a certified public accountant (CPA) for complex tax situations.
         """)
 
 def main():
-    st.set_page_config(page_title="KRA Hustle-Tax Sanitizer", page_icon="🇰🇪")
+    st.set_page_config(page_title="KRA Hustle-Tax Sanitizer", page_icon="🇰🇪", layout="wide")
     show_disclaimer()
 
     st.title("🇰🇪 KRA Hustle-Tax Sanitizer")
@@ -183,9 +183,9 @@ def main():
 
         st.divider()
         st.markdown("""
-        ### 👨‍💻 Developed by Elvis Kiprono
+        ### 👨‍💻 Developed by Elvis Tile
         If this tool helps you, please consider:
-        - ⭐ **Leaving a star** on [GitHub](https://github.com/elviskiprono)
+        - ⭐ **Leaving a star** on [GitHub](https://github.com/tilelvis/hustlampesa)
         - 🤝 **Engaging** with the repository
 
         *Free to use under the MIT License.*
@@ -206,37 +206,92 @@ def main():
             st.warning(error)
 
         if df is not None and not df.empty:
+            # --- Metrics Dashboard ---
             taxable_df = df[df['Final_Category'] == 'TAXABLE INCOME']
             taxable_total = taxable_df['Amount'].sum()
             total_in = df[df['Amount'] > 0]['Amount'].sum()
+            noise_amount = total_in - taxable_total
 
+            st.subheader("🚀 Your 2025 Hustle Snapshot")
             col1, col2, col3 = st.columns(3)
-            col1.metric("Total Money In", f"Ksh {total_in:,.2f}")
-            col2.metric("Clean Taxable Income", f"Ksh {taxable_total:,.2f}", delta_color="inverse")
 
-            tax_estimate = "Check Brackets"
-            if taxable_total < 24000:
-                tax_estimate = "Ksh 0.00"
-            elif taxable_total < 288000:
-                tax_estimate = "Below Annual Limit"
+            with col1:
+                st.metric("Total Money In", f"Ksh {total_in:,.0f}", help="Every cent that hit your M-Pesa.")
+                st.caption("📂 The 'Gross' Figure")
 
-            col3.metric("Tax Owed (Estimate)", tax_estimate)
+            with col2:
+                st.metric("The 'Noise'", f"Ksh {noise_amount:,.0f}", delta="Non-Taxable", delta_color="normal", help="Money that doesn't count as income (Transfers, Loans, etc.)")
+                st.caption("🛡️ Non-Taxable Asset Protection")
 
-            st.subheader("Income Breakdown")
-            summary = df[df['Amount'] > 0].groupby('Final_Category')['Amount'].sum()
-            if not summary.empty:
-                st.bar_chart(summary)
-            else:
-                st.info("No income found to display in the chart.")
+            with col3:
+                reduction = 0
+                if total_in > 0:
+                    reduction = (noise_amount / total_in) * 100
+                st.metric("Real Taxable Income", f"Ksh {taxable_total:,.0f}", delta=f"-{reduction:.0f}% from Gross", delta_color="inverse", help="The portion KRA considers taxable.")
+                st.caption("💰 Net Taxable Base (Estimate)")
 
+            # --- Learning Path ---
+            st.divider()
+            with st.expander("🎓 Learn the 'Rule of Thumb' while you file"):
+                st.info("""
+                **1. The 288k Rule:** In Kenya, the first **Ksh 288,000** you earn annually is tax-free. If your 'Real Taxable Income' card is low (below 24k/month), you may owe **NIL** tax!
+
+                **2. Debt != Wealth:** Loans (like M-Shwari, Fuliza, or Zenka) are 'Money In' but **not** income. We've automatically identified and filtered them for you.
+
+                **3. The Paper Trail:** KRA requires evidence for audits. Download the 'Sanitized Report' below to document why large bank movements were excluded from your taxable income.
+                """)
+
+            # --- Visualizations ---
+            c1, c2 = st.columns([1, 1])
+
+            with c1:
+                st.subheader("Where did your money come from?")
+                pie_data = df[df['Amount'] > 0].groupby('Final_Category')['Amount'].sum().reset_index()
+                if not pie_data.empty:
+                    fig = px.pie(
+                        pie_data,
+                        values='Amount',
+                        names='Final_Category',
+                        hole=0.4,
+                        color_discrete_sequence=px.colors.qualitative.Pastel
+                    )
+                    st.plotly_chart(fig, use_container_width=True)
+                else:
+                    st.info("No inflow data found for the chart.")
+
+            with c2:
+                st.subheader("Monthly Income Trend")
+                if 'Date' in df.columns:
+                    df['Month'] = pd.to_datetime(df['Date']).dt.strftime('%Y-%m')
+                    monthly_data = taxable_df.copy()
+                    monthly_data['Month'] = pd.to_datetime(monthly_data['Date']).dt.strftime('%Y-%m')
+                    monthly_summary = monthly_data.groupby('Month')['Amount'].sum()
+                    if not monthly_summary.empty:
+                        st.bar_chart(monthly_summary)
+                    else:
+                        st.info("Insufficient data for monthly trends.")
+
+            # --- Data Table ---
             st.subheader("Verified Taxable Entries")
             st.dataframe(taxable_df[['Date', 'Amount', 'Description']], use_container_width=True)
 
+            # --- Final Prep Checklist ---
+            st.divider()
+            st.write("### ✅ Final Prep for iTax")
+            check1 = st.checkbox("I have confirmed all 'Taxable Income' entries are real business revenue.")
+            check2 = st.checkbox("I have verified that 'Asset Transfers' are just me moving my own money.")
+            check3 = st.checkbox("I've downloaded my Audit Report for my 5-year records.")
+
+            if check1 and check2 and check3:
+                st.balloons()
+                st.success("🎉 You are ready to file! Head over to [itax.kra.go.ke](https://itax.kra.go.ke) and enter your 'Real Taxable Income' total.")
+
+            # --- Download Button ---
             csv = df.to_csv(index=False).encode('utf-8')
             st.download_button(
-                label="Download Sanitized Report as CSV",
+                label="Download Sanitized Audit Report (CSV)",
                 data=csv,
-                file_name='Sanitized_KRA_Report.csv',
+                file_name='Sanitized_KRA_Audit_Report.csv',
                 mime='text/csv',
             )
     else:
