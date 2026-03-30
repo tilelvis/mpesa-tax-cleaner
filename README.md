@@ -1,4 +1,4 @@
-# 🇰🇪 KRA Hustle-Tax Sanitizer
+# 🇰🇪 KRA Mpesa-Tax Sanitizer
 
 Transform your M-Pesa statements into a clear report of your estimated taxable income. This application filters out bank transfers, loans, and other non-taxable transactions to help you manage your taxes.
 
@@ -10,7 +10,7 @@ Transform your M-Pesa statements into a clear report of your estimated taxable i
 * **Security:** Avoid uploading statements on public or shared computers.
 
 ### **2. Accuracy of Classification**
-* **Automated Tool:** This is an AI-assisted categorization tool designed to simplify KRA filing. It uses keyword matching to identify banks, loans, and gambling transactions.
+* **Automated Tool:** This is an AI-assisted categorization tool designed to simplify KRA filing. It uses keyword matching to identify banks, loans, and exemped transactions(withheld).
 * **User Responsibility:** While the logic is tuned for Kenyan M-Pesa formats, it is **not 100% infallible**.
 * **Verification Required:** You are legally responsible for the accuracy of your KRA returns. Please verify the "Taxable Income" list manually before submitting your final return on iTax.
 
@@ -26,8 +26,8 @@ Transform your M-Pesa statements into a clear report of your estimated taxable i
   - **Asset Transfer (Bank)**: Transfers to and from your bank accounts.
   - **Asset Transfer (Mobile)**: Transfers to and from your other mobile numbers or yourself.
   - **Loan/Credit (Non-Taxable)**: Transactions involving overdrafts, credit, M-Shwari, Fuliza, KCB M-Pesa, Tala, Zenka, etc.
-  - **Exempt (Gambling Winnings)**: Transactions with withholding tax already paid (e.g., Sportpesa, Betika).
-- **Hustle vs. Noise Analysis**: Advanced metrics dashboard showing "Gross Money In" versus "Net Taxable Base" using the 'Rule of Thumb' logic.
+  - **Exempted**: Transactions with withholding tax already paid (e.g., Sportpesa, Betika).
+- **Taxable vs. Noise Analysis**: Advanced metrics dashboard showing "Gross Money In" versus "Net Taxable Base" using the 'Rule of Thumb' logic.
 - **Interactive Visualizations**: Dynamic Plotly pie charts and bar charts for source and monthly trend analysis.
 - **Interactive iTax Checklist**: A final preparation checklist to ensure data accuracy before filing on itax.kra.go.ke.
 - **Educational Insights**: Built-in guides explaining Kenyan tax rules (e.g., the 288k rule and why loans are non-taxable).
