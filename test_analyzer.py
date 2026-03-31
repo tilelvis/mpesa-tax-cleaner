@@ -1,10 +1,10 @@
 import unittest
 import pandas as pd
 import re
-from app import HustleTaxAnalyzer
+from app import MpesaTaxAnalyzer
 from unittest.mock import MagicMock, patch
 
-class TestHustleTaxAnalyzer(unittest.TestCase):
+class TestMpesaTaxAnalyzer(unittest.TestCase):
     def setUp(self):
         self.my_names = ["Test User"]
         self.my_banks = ["KCB", "Equity"]
@@ -31,7 +31,7 @@ class TestHustleTaxAnalyzer(unittest.TestCase):
         mock_instance.is_encrypted = False
         mock_pdf_reader.return_value = mock_instance
 
-        analyzer = HustleTaxAnalyzer(self.my_phones, self.my_banks, self.my_names, self.my_loans, self.my_gambling)
+        analyzer = MpesaTaxAnalyzer(self.my_phones, self.my_banks, self.my_names, self.my_loans, self.my_gambling)
         df, error = analyzer.process_pdf(None)
 
         self.assertIsNone(error)
@@ -59,7 +59,7 @@ class TestHustleTaxAnalyzer(unittest.TestCase):
 GQ12345678,2023-01-01 10:00:00,Received from CLIENT A,Completed,"10,000.00",,10000.00
 HQ12345678,2023-01-02 11:00:00,Pay Bill to ELECTRICITY,Completed,,"1,500.00",8500.00
 """)
-        analyzer = HustleTaxAnalyzer(self.my_phones, self.my_banks, self.my_names, self.my_loans, self.my_gambling)
+        analyzer = MpesaTaxAnalyzer(self.my_phones, self.my_banks, self.my_names, self.my_loans, self.my_gambling)
         df, error = analyzer.process_csv(csv_data)
 
         self.assertIsNone(error)
