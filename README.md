@@ -1,9 +1,8 @@
 # 🇰🇪 KRA Mpesa Tax Cleaner
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge.svg)](https://mpesatax.streamlit.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-![Landing Page](screenshots/landing_page.png)
+![Landing Page](screenshots/landing_page)
 
 **Transform your M-Pesa statements from a "Boring Tax Table" into a powerful "M-Pesa Tax Dashboard."** 🚀
 
