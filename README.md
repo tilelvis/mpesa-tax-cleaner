@@ -2,6 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+Try it online: https://mpesatax.streamlit.app/
+
 ![Landing Page](https://github.com/tilelvis/mpesa-tax-cleaner/blob/main/screenshots/landing_page.png)
 
 **Transform your M-Pesa statements from a "Boring Tax Table" into a powerful "M-Pesa Tax Dashboard."** 🚀
