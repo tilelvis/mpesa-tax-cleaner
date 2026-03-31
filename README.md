@@ -1,6 +1,5 @@
 # 🇰🇪 KRA Mpesa-Tax Sanitizer
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge.svg)](https://mpesatax.streamlit.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ![Landing Page](screenshots/landing_page.png)
