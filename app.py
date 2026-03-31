@@ -169,8 +169,8 @@ def main():
 
     st.title("🇰🇪 KRA Hustle-Tax Sanitizer")
     st.markdown("""
-    Upload your M-Pesa **PDF statement** or **CSV report** to filter out bank transfers and loans,
-    leaving only your **estimated taxable income**.
+    ### **Ready to clean your tax data?**
+    Stop paying tax on your own transfers and loans. Upload your M-Pesa statement below to reveal your **Real Taxable Income** in seconds.
     """)
 
     with st.sidebar:
@@ -202,7 +202,7 @@ def main():
         *Free to use under the MIT License.*
         """)
 
-    uploaded_file = st.file_uploader("Upload M-Pesa Statement (PDF or CSV)", type=["pdf", "csv"])
+    uploaded_file = st.file_uploader("📂 Drop your M-Pesa PDF or CSV statement here:", type=["pdf", "csv"])
 
     if uploaded_file is not None:
         analyzer = HustleTaxAnalyzer(phones, banks, names, loans, gambling, pdf_password)
@@ -306,7 +306,7 @@ def main():
                 mime='text/csv',
             )
     else:
-        st.info("Please upload an M-Pesa statement to begin.")
+        st.info("👋 **Welcome!** Please upload a PDF or CSV statement to begin your analysis.")
 
 if __name__ == "__main__":
     main()
