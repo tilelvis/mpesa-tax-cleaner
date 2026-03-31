@@ -1,4 +1,4 @@
-# 🇰🇪 KRA Mpesa-Tax Sanitizer
+# 🇰🇪 KRA Mpesa Tax Cleaner
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge.svg)](https://mpesatax.streamlit.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -7,7 +7,7 @@
 
 **Transform your M-Pesa statements from a "Boring Tax Table" into a powerful "M-Pesa Tax Dashboard."** 🚀
 
-The **KRA Mpesa-Tax Sanitizer** helps Kenyan entrepreneurs, freelancers, and side-hustlers distinguish between "Real Taxable Income" and the "Noise" (transfers, loans, and personal movements). It automates the painful process of cleaning M-Pesa statements for KRA iTax filing.
+The **KRA Mpesa Tax Cleaner** helps Kenyan entrepreneurs, freelancers, and side-hustlers distinguish between "Real Taxable Income" and the "Noise" (transfers, loans, and personal movements). It automates the painful process of cleaning M-Pesa statements for KRA iTax filing.
 
 ---
 
@@ -28,7 +28,7 @@ The **KRA Mpesa-Tax Sanitizer** helps Kenyan entrepreneurs, freelancers, and sid
 <details>
 <summary><b>🔍 View Advanced Categorization Methodology</b></summary>
 
-The "Sanitizer" uses a heuristic engine to classify inflows based on description keywords and transaction direction:
+The **Mpesa Tax Cleaner** uses a heuristic engine to classify inflows based on description keywords and transaction direction:
 
 1.  **Money-In Identification**: Identifies income indicators like `Received from`, `Transfer from bank`, and `Loan received`.
 2.  **Asset Transfer (Bank)**: Matches known Kenyan bank keywords (KCB, Equity, Sidian, I&M, etc.) to exclude your own bank-to-mobile movements.
