@@ -33,7 +33,7 @@ The **Mpesa Tax Cleaner** uses a heuristic engine to classify inflows based on d
 2.  **Asset Transfer (Bank)**: Matches known Kenyan bank keywords (KCB, Equity, Sidian, I&M, etc.) to exclude your own bank-to-mobile movements.
 3.  **Loan/Credit (Non-Taxable)**: Detects lenders like M-Shwari, Fuliza, Tala, and the Hustler Fund. These are categorized as liabilities, not income.
 4.  **Asset Transfer (Mobile)**: Uses your registered names and phone number suffixes to identify self-transfers (moving money between your own lines).
-5.  **Exempt (Gambling Winnings)**: Identifies platforms like Sportpesa or Betika where withholding tax (20%) is already deducted at the source.
+5.  **Withheld Tax (Already Taxed at Source)**: Identifies inflows where tax has already been deducted at source by the payer (e.g., bank interest, dividends, professional fees, or certain gaming winnings).
 6.  **Taxable Income**: The remaining "Clean" revenue that represents your actual business or freelance earnings.
 
 </details>
@@ -70,6 +70,7 @@ The **Mpesa Tax Cleaner** uses a heuristic engine to classify inflows based on d
 - **No Storage**: This application **does not store** your passwords or statement data. Once the session is closed, the data is wiped.
 - **Accuracy**: While tuned for Kenyan M-Pesa formats, this is an AI-assisted categorization tool. You are legally responsible for the accuracy of your KRA returns.
 - **Not Financial Advice**: For analytical and educational purposes only.
+- **Verification Required**: Categorization relies on keyword patterns and is not perfect. Always verify with your actual withholding certificates and consult a tax professional before filing on iTax.
 
 ---
 
