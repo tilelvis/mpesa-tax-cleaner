@@ -1,23 +1,20 @@
-# 🇰🇪 KRA Hustle-Tax Sanitizer
+# 🇰🇪 KRA Mpesa-Tax Sanitizer
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge.svg)](https://hustlampesa.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge.svg)](https://mpesatax.streamlit.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-**Transform your M-Pesa statements from a "Boring Tax Table" into a powerful "Hustle Dashboard."** 🚀
+![Landing Page](screenshots/landing_page.png)
 
-The **KRA Hustle-Tax Sanitizer** helps Kenyan entrepreneurs, freelancers, and side-hustlers distinguish between "Real Taxable Income" and the "Noise" (transfers, loans, and personal movements). It automates the painful process of cleaning M-Pesa statements for KRA iTax filing.
+**Transform your M-Pesa statements from a "Boring Tax Table" into a powerful "M-Pesa Tax Dashboard."** 🚀
 
----
-
-## 🎨 Recommended Header Image (AI/Canva Prompt)
-> **Prompt for Grok Imagine / Canva:** *"A modern, sleek flat-design illustration of a Kenyan flag-themed 🇰🇪 shield protecting a stack of gold coins from a storm of paper receipts. High-tech digital dashboard in the background with green 'Growth' bars and blue 'Asset Transfer' icons. Professional, minimalist, and vibrant."*
+The **KRA Mpesa-Tax Sanitizer** helps Kenyan entrepreneurs, freelancers, and side-hustlers distinguish between "Real Taxable Income" and the "Noise" (transfers, loans, and personal movements). It automates the painful process of cleaning M-Pesa statements for KRA iTax filing.
 
 ---
 
 ## 🚀 Key Features
 
 - **📂 Multi-Format Support**: Automatically extracts transaction data from both **M-Pesa PDF statements** and **CSV reports**.
-- **📊 Hustle vs. Noise Analysis**: Advanced metrics dashboard showing "Gross Money In" versus "Net Taxable Base" using the 'Rule of Thumb' logic.
+- **📊 M-Pesa vs. Noise Analysis**: Advanced metrics dashboard showing "Gross Money In" versus "Net Taxable Base" using the 'Rule of Thumb' logic.
 - **📈 Interactive Visualizations**: Dynamic **Plotly** pie charts and monthly trend bar charts for source and trend analysis.
 - **✅ Interactive iTax Checklist**: A final preparation checklist to ensure data accuracy before filing on `itax.kra.go.ke`.
 - **🎓 Educational Insights**: Built-in guides explaining Kenyan tax rules (e.g., the 288k annual tax-free threshold and why loans aren't income).

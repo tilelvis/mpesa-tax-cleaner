@@ -11,7 +11,7 @@ DEFAULT_GAMBLING = '1xbet, paystack, betika, sportpesa, odibets, betway, b2c'
 DEFAULT_PHONES = '123, 456'
 DEFAULT_NAMES = 'Your Name'
 
-class HustleTaxAnalyzer:
+class MpesaTaxAnalyzer:
     def __init__(self, my_other_numbers, my_banks, my_names, my_loans, my_gambling, password=None):
         self.personal_ids = [str(n).strip() for n in my_other_numbers if n.strip()]
         self.bank_keywords = [b.lower().strip() for b in my_banks if b.strip()]
@@ -153,12 +153,12 @@ def show_disclaimer():
         """)
 
 def main():
-    st.set_page_config(page_title="KRA Hustle-Tax Sanitizer", page_icon="🇰🇪", layout="wide")
+    st.set_page_config(page_title="KRA Mpesa-Tax Sanitizer", page_icon="🇰🇪", layout="wide")
     show_disclaimer()
 
     with st.expander("🔍 How the Categorization Works"):
         st.write("""
-        The **Hustle-Tax Sanitizer** uses a heuristic engine to classify your M-Pesa inflows into six logical buckets:
+        The **Mpesa-Tax Sanitizer** uses a heuristic engine to classify your M-Pesa inflows into six logical buckets:
         1. **TAXABLE INCOME**: The "Clean" revenue that represents your actual business or freelance earnings.
         2. **ASSET TRANSFER (BANK)**: Movements to and from your own bank accounts (e.g., KCB, Equity).
         3. **ASSET TRANSFER (MOBILE)**: Self-transfers between your own M-Pesa lines.
@@ -167,7 +167,7 @@ def main():
         6. **Personal Expense**: Outflows that are not considered business revenue.
         """)
 
-    st.title("🇰🇪 KRA Hustle-Tax Sanitizer")
+    st.title("🇰🇪 KRA Mpesa-Tax Sanitizer")
     st.markdown("""
     ### **Ready to clean your tax data?**
     Stop paying tax on your own transfers and loans. Upload your M-Pesa statement below to reveal your **Real Taxable Income** in seconds.
@@ -205,7 +205,7 @@ def main():
     uploaded_file = st.file_uploader("📂 Drop your M-Pesa PDF or CSV statement here:", type=["pdf", "csv"])
 
     if uploaded_file is not None:
-        analyzer = HustleTaxAnalyzer(phones, banks, names, loans, gambling, pdf_password)
+        analyzer = MpesaTaxAnalyzer(phones, banks, names, loans, gambling, pdf_password)
 
         with st.spinner('Analyzing transactions...'):
             if uploaded_file.name.endswith('.pdf'):
@@ -223,7 +223,7 @@ def main():
             total_in = df[df['Amount'] > 0]['Amount'].sum()
             noise_amount = total_in - taxable_total
 
-            st.subheader("🚀 Your 2025 Hustle Snapshot")
+            st.subheader("🚀 Your 2025 M-Pesa Snapshot")
             col1, col2, col3 = st.columns(3)
 
             with col1:
