@@ -1,16 +1,11 @@
 # 🇰🇪 KRA Hustle-Tax Sanitizer
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge.svg)](https://hustlampesa.streamlit.app/)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge.svg)](https://mpesatax.streamlit.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 **Transform your M-Pesa statements from a "Boring Tax Table" into a powerful "Hustle Dashboard."** 🚀
 
 The **KRA Hustle-Tax Sanitizer** helps Kenyan entrepreneurs, freelancers, and side-hustlers distinguish between "Real Taxable Income" and the "Noise" (transfers, loans, and personal movements). It automates the painful process of cleaning M-Pesa statements for KRA iTax filing.
-
----
-
-## 🎨 Recommended Header Image (AI/Canva Prompt)
-> **Prompt for Grok Imagine / Canva:** *"A modern, sleek flat-design illustration of a Kenyan flag-themed 🇰🇪 shield protecting a stack of gold coins from a storm of paper receipts. High-tech digital dashboard in the background with green 'Growth' bars and blue 'Asset Transfer' icons. Professional, minimalist, and vibrant."*
 
 ---
 
