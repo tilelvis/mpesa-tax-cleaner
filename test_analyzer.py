@@ -10,7 +10,7 @@ class TestMpesaTaxAnalyzer(unittest.TestCase):
         self.my_banks = ["KCB", "Equity"]
         self.my_phones = ["123456"]
         self.my_loans = ["M-SHWARI", "FULIZA"]
-        self.my_gambling = ["BETIKA", "SPORTPESA"]
+        self.my_wht = ["DIVIDEND", "INTEREST"]
 
     @patch('pypdf.PdfReader')
     def test_process_pdf_parsing(self, mock_pdf_reader):
@@ -31,7 +31,7 @@ class TestMpesaTaxAnalyzer(unittest.TestCase):
         mock_instance.is_encrypted = False
         mock_pdf_reader.return_value = mock_instance
 
-        analyzer = MpesaTaxAnalyzer(self.my_phones, self.my_banks, self.my_names, self.my_loans, self.my_gambling)
+        analyzer = MpesaTaxAnalyzer(self.my_phones, self.my_banks, self.my_names, self.my_loans, self.my_wht)
         df, error = analyzer.process_pdf(None)
 
         self.assertIsNone(error)
@@ -42,14 +42,13 @@ class TestMpesaTaxAnalyzer(unittest.TestCase):
         # 1. Received from JOHN DOE -> TAXABLE INCOME
         self.assertIn('TAXABLE INCOME', categories)
         # 2. Pay Bill to KCB BANK -> Personal Expense (Not 'Received')
-        # Wait, my logic says if not money_in, return Personal Expense.
         self.assertIn('Personal Expense', categories)
         # 3. Received from 254... -> ASSET TRANSFER (MOBILE)
         self.assertIn('ASSET TRANSFER (MOBILE)', categories)
         # 4. M-SHWARI LOAN -> LOAN/CREDIT
         self.assertIn('LOAN/CREDIT (NON-TAXABLE)', categories)
-        # 5. SPORTPESA -> EXEMPT (GAMBLING WINNINGS)
-        self.assertIn('EXEMPT (GAMBLING WINNINGS)', categories)
+        # 5. SPORTPESA -> Withheld Tax (Already Taxed at Source) - via internal keywords
+        self.assertIn('Withheld Tax (Already Taxed at Source)', categories)
         # 6. Sent to JANE DOE -> Personal Expense
         self.assertEqual(categories[5], 'Personal Expense')
 
@@ -59,7 +58,7 @@ class TestMpesaTaxAnalyzer(unittest.TestCase):
 GQ12345678,2023-01-01 10:00:00,Received from CLIENT A,Completed,"10,000.00",,10000.00
 HQ12345678,2023-01-02 11:00:00,Pay Bill to ELECTRICITY,Completed,,"1,500.00",8500.00
 """)
-        analyzer = MpesaTaxAnalyzer(self.my_phones, self.my_banks, self.my_names, self.my_loans, self.my_gambling)
+        analyzer = MpesaTaxAnalyzer(self.my_phones, self.my_banks, self.my_names, self.my_loans, self.my_wht)
         df, error = analyzer.process_csv(csv_data)
 
         self.assertIsNone(error)

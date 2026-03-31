@@ -7,17 +7,24 @@ import plotly.express as px
 
 DEFAULT_BANKS = 'im bank, i&m, sidian, kcb, equity, co-op, absa, stanchart, ncba, family, transfer from bank'
 DEFAULT_LOANS = 'overdraft, credit, chelete, zenka, tala, branch, m-shwari, fuliza, kcb mpesa, unaitas, advance poa, loan, kcb m-pesa, hustler fund, zash, okash'
-DEFAULT_GAMBLING = '1xbet, paystack, betika, sportpesa, odibets, betway, b2c'
+DEFAULT_WHT = 'dividend, interest, royalty, professional fee, consultancy'
 DEFAULT_PHONES = '123, 456'
 DEFAULT_NAMES = 'Your Name'
 
+# Internal use only – do not expose to UI or README.
+BETTING_KEYWORDS = [
+    "sportpesa", "betika", "mozzart", "mozzartbet", "odibets", "sportybet",
+    "22bet", "1xbet", "betwinner", "melbet", "paripesa", "winwin", "betway",
+    "gaming", "betting payout", "bet win", "withdrawal from betting", "bet wallet", "b2c"
+]
+
 class MpesaTaxAnalyzer:
-    def __init__(self, my_other_numbers, my_banks, my_names, my_loans, my_gambling, password=None):
+    def __init__(self, my_other_numbers, my_banks, my_names, my_loans, my_extra_wht, password=None):
         self.personal_ids = [str(n).strip() for n in my_other_numbers if n.strip()]
         self.bank_keywords = [b.lower().strip() for b in my_banks if b.strip()]
         self.personal_names = [n.lower().strip() for n in my_names if n.strip()]
         self.loan_keywords = [l.lower().strip() for l in my_loans if l.strip()]
-        self.gambling_keywords = [g.lower().strip() for g in my_gambling if g.strip()]
+        self.wht_keywords = [w.lower().strip() for w in my_extra_wht if w.strip()]
         self.password = password
 
     def is_money_in(self, desc):
@@ -37,8 +44,8 @@ class MpesaTaxAnalyzer:
         if any(loan in desc for loan in self.loan_keywords):
             return "LOAN/CREDIT (NON-TAXABLE)"
 
-        if any(bet in desc for bet in self.gambling_keywords):
-            return "EXEMPT (GAMBLING WINNINGS)"
+        if any(keyword in desc for keyword in BETTING_KEYWORDS) or any(w in desc for w in self.wht_keywords):
+            return "Withheld Tax (Already Taxed at Source)"
 
         is_self_id = any(f"******{ide}" in desc or desc.endswith(ide) for ide in self.personal_ids)
         is_self_name = any(name in desc for name in self.personal_names)
@@ -186,7 +193,7 @@ def main():
         2. **ASSET TRANSFER (BANK)**: Movements to and from your own bank accounts (e.g., KCB, Equity).
         3. **ASSET TRANSFER (MOBILE)**: Self-transfers between your own M-Pesa lines.
         4. **LOAN/CREDIT (NON-TAXABLE)**: Liabilities like M-Shwari, Fuliza, or the Hustler Fund.
-        5. **EXEMPT (GAMBLING WINNINGS)**: Inflows where withholding tax (20%) is already paid at the source.
+        5. **Withheld Tax (Already Taxed at Source)**: Inflows where tax has already been deducted and remitted to KRA by the payer (e.g., certain dividends, bank interest, professional/consultancy fees, royalties, and betting winnings). These amounts are generally not added again as fresh taxable income to avoid double taxation.
         6. **Personal Expense**: Outflows that are not considered business revenue.
         """)
 
@@ -206,13 +213,13 @@ def main():
         name_input = st.text_input("Your Registered Names (comma separated)", DEFAULT_NAMES)
         bank_input = st.text_area("Your Bank Names (comma separated)", DEFAULT_BANKS)
         loan_input = st.text_area("Loan Keywords (comma separated)", DEFAULT_LOANS)
-        gambling_input = st.text_area("Gambling Keywords (comma separated)", DEFAULT_GAMBLING)
+        wht_input = st.text_area("Additional Withheld Payers (comma separated)", DEFAULT_WHT, help="Add keywords for payers who already deduct tax (e.g., dividends, interest, professional fees).")
         phone_input = st.text_area("Your Other Phone Numbers / IDs (comma separated)", DEFAULT_PHONES)
 
         names = [n.strip() for n in name_input.split(",") if n.strip()]
         banks = [b.strip() for b in bank_input.split(",") if b.strip()]
         loans = [l.strip() for l in loan_input.split(",") if l.strip()]
-        gambling = [g.strip() for g in gambling_input.split(",") if g.strip()]
+        wht_extra = [w.strip() for w in wht_input.split(",") if w.strip()]
         phones = [p.strip() for p in phone_input.split(",") if p.strip()]
 
         st.divider()
@@ -228,7 +235,7 @@ def main():
     uploaded_file = st.file_uploader("📂 Drop your M-Pesa PDF or CSV statement here:", type=["pdf", "csv"])
 
     if uploaded_file is not None:
-        analyzer = MpesaTaxAnalyzer(phones, banks, names, loans, gambling, pdf_password)
+        analyzer = MpesaTaxAnalyzer(phones, banks, names, loans, wht_extra, pdf_password)
 
         with st.spinner('Analyzing transactions...'):
             if uploaded_file.name.endswith('.pdf'):
@@ -313,7 +320,7 @@ def main():
             st.divider()
             st.write("### ✅ Final Prep for iTax")
             check1 = st.checkbox("I have confirmed all 'Taxable Income' entries are real business revenue.")
-            check2 = st.checkbox("I have verified that 'Asset Transfers' are just me moving my own money.")
+            check2 = st.checkbox("I have verified that 'Asset Transfers' and 'Withheld Tax' are excluded correctly.")
             check3 = st.checkbox("I've downloaded my Audit Report for my 5-year records.")
 
             if check1 and check2 and check3:
