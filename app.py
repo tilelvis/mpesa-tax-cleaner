@@ -136,8 +136,8 @@ class MpesaTaxAnalyzer:
         except Exception as e:
             return None, f"Error reading CSV: {e}"
 
-def show_disclaimer():
-    with st.expander("⚖️ Professional Disclaimer & Data Privacy Notice", expanded=False):
+def show_disclaimer(expanded=False):
+    with st.expander("⚖️ Professional Disclaimer & Data Privacy Notice", expanded=expanded):
         st.markdown("""
         ### **1. Data Privacy & Local Processing**
         * **Client-Side Simulation:** This application processes all M-Pesa statement data locally within your browser/server session.
@@ -153,9 +153,32 @@ def show_disclaimer():
         """)
 
 def main():
-    st.set_page_config(page_title="KRA Mpesa-Tax Sanitizer", page_icon="🇰🇪", layout="wide")
-    show_disclaimer()
+    st.set_page_config(page_title="Mpesa-Tax Sanitizer", page_icon="🇰🇪", layout="wide")
 
+    # Initialize session state for agreement
+    if 'agreed' not in st.session_state:
+        st.session_state.agreed = False
+
+    if not st.session_state.agreed:
+        st.title("⚖️ Mpesa-Tax Sanitizer: Terms & Conditions")
+        st.markdown("""
+        ### **🛡️ Your Privacy is Our Priority**
+        Before you begin, please review and acknowledge our commitment to your privacy and the analytical nature of this tool.
+        """)
+
+        show_disclaimer(expanded=True)
+
+        st.divider()
+        agree = st.checkbox("✅ I have read and I agree to the **Terms & Conditions** and **Data Privacy Notice** above.")
+
+        if st.button("Proceed to Dashboard", disabled=not agree):
+            st.session_state.agreed = True
+            st.rerun()
+
+        st.info("💡 **Local Processing Only:** Your data is processed entirely in your browser. No files are uploaded to our servers.")
+        return
+
+    # --- Main Application Logic ---
     with st.expander("🔍 How the Categorization Works"):
         st.write("""
         The **Mpesa-Tax Sanitizer** uses a heuristic engine to classify your M-Pesa inflows into six logical buckets:
@@ -167,7 +190,7 @@ def main():
         6. **Personal Expense**: Outflows that are not considered business revenue.
         """)
 
-    st.title("🇰🇪 KRA Mpesa-Tax Sanitizer")
+    st.title("🇰🇪 Mpesa-Tax Sanitizer")
     st.markdown("""
     ### **Ready to clean your tax data?**
     Stop paying tax on your own transfers and loans. Upload your M-Pesa statement below to reveal your **Real Taxable Income** in seconds.

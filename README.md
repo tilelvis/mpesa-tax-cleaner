@@ -7,6 +7,8 @@
 
 **Transform your M-Pesa statements from a "Boring Tax Table" into a powerful "M-Pesa Tax Dashboard."** 🚀
 
+The **KRA Mpesa-Tax Sanitizer** helps Kenyan entrepreneurs, freelancers, and side-hustlers distinguish between "Real Taxable Income" and the "Noise" (transfers, loans, and personal movements). It automates the painful process of cleaning M-Pesa statements for KRA iTax filing.
+
 ---
 
 ## 🚀 Key Features
