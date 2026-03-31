@@ -321,7 +321,7 @@ def main():
             st.write("### ✅ Final Prep for iTax")
             check1 = st.checkbox("I have confirmed all 'Taxable Income' entries are real business revenue.")
             check2 = st.checkbox("I have verified that 'Asset Transfers' and 'Withheld Tax' are excluded correctly.")
-            check3 = st.checkbox("I've downloaded my Audit Report for my 5-year records.")
+            check3 = st.checkbox("I've downloaded my Audit Report for my 1-year records.")
 
             if check1 and check2 and check3:
                 st.balloons()
