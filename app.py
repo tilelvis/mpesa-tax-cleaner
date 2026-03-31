@@ -156,6 +156,17 @@ def main():
     st.set_page_config(page_title="KRA Hustle-Tax Sanitizer", page_icon="🇰🇪", layout="wide")
     show_disclaimer()
 
+    with st.expander("🔍 How the Categorization Works"):
+        st.write("""
+        The **Hustle-Tax Sanitizer** uses a heuristic engine to classify your M-Pesa inflows into six logical buckets:
+        1. **TAXABLE INCOME**: The "Clean" revenue that represents your actual business or freelance earnings.
+        2. **ASSET TRANSFER (BANK)**: Movements to and from your own bank accounts (e.g., KCB, Equity).
+        3. **ASSET TRANSFER (MOBILE)**: Self-transfers between your own M-Pesa lines.
+        4. **LOAN/CREDIT (NON-TAXABLE)**: Liabilities like M-Shwari, Fuliza, or the Hustler Fund.
+        5. **EXEMPT (GAMBLING WINNINGS)**: Inflows where withholding tax (20%) is already paid at the source.
+        6. **Personal Expense**: Outflows that are not considered business revenue.
+        """)
+
     st.title("🇰🇪 KRA Hustle-Tax Sanitizer")
     st.markdown("""
     Upload your M-Pesa **PDF statement** or **CSV report** to filter out bank transfers and loans,

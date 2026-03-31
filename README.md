@@ -1,78 +1,87 @@
-# 🇰🇪 KRA Mpesa-Tax Sanitizer
+# 🇰🇪 KRA Hustle-Tax Sanitizer
 
-Transform your M-Pesa statements into a clear report of your estimated taxable income. This application filters out bank transfers, loans, and other non-taxable transactions to help you manage your taxes.
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge.svg)](https://hustlampesa.streamlit.app/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## ⚠️ Important Disclaimer & Data Privacy
+**Transform your M-Pesa statements from a "Boring Tax Table" into a powerful "Hustle Dashboard."** 🚀
 
-### **1. Data Privacy & Passwords**
-* **Local Processing:** This application processes your M-Pesa statements locally in your browser/server session.
-* **No Storage:** Your PDF passwords and statement data are **not stored** on any database or shared with third parties. Once the session is closed, the data is wiped.
-* **Security:** Avoid uploading statements on public or shared computers.
+The **KRA Hustle-Tax Sanitizer** helps Kenyan entrepreneurs, freelancers, and side-hustlers distinguish between "Real Taxable Income" and the "Noise" (transfers, loans, and personal movements). It automates the painful process of cleaning M-Pesa statements for KRA iTax filing.
 
-### **2. Accuracy of Classification**
-* **Automated Tool:** This is an AI-assisted categorization tool designed to simplify KRA filing. It uses keyword matching to identify banks, loans, and exemped transactions(withheld).
-* **User Responsibility:** While the logic is tuned for Kenyan M-Pesa formats, it is **not 100% infallible**.
-* **Verification Required:** You are legally responsible for the accuracy of your KRA returns. Please verify the "Taxable Income" list manually before submitting your final return on iTax.
+---
 
-### **3. Not Financial Advice**
-* This tool is for analytical purposes only and does not constitute professional tax or legal advice.
+## 🎨 Recommended Header Image (AI/Canva Prompt)
+> **Prompt for Grok Imagine / Canva:** *"A modern, sleek flat-design illustration of a Kenyan flag-themed 🇰🇪 shield protecting a stack of gold coins from a storm of paper receipts. High-tech digital dashboard in the background with green 'Growth' bars and blue 'Asset Transfer' icons. Professional, minimalist, and vibrant."*
 
-## Features
+---
 
-- **Multi-Format Support**: Automatically extracts transaction data from both **M-Pesa PDF statements** and **CSV reports**.
-- **PDF Decryption**: Support for password-protected PDF statements (usually your ID or Document Number).
-- **Smart Categorization**:
-  - **Taxable Income**: Your earnings from various sources.
-  - **Asset Transfer (Bank)**: Transfers to and from your bank accounts.
-  - **Asset Transfer (Mobile)**: Transfers to and from your other mobile numbers or yourself.
-  - **Loan/Credit (Non-Taxable)**: Transactions involving overdrafts, credit, M-Shwari, Fuliza, KCB M-Pesa, Tala, Zenka, etc.
-  - **Exempted**: Transactions with withholding tax already paid (e.g., Sportpesa, Betika).
-- **Taxable vs. Noise Analysis**: Advanced metrics dashboard showing "Gross Money In" versus "Net Taxable Base" using the 'Rule of Thumb' logic.
-- **Interactive Visualizations**: Dynamic Plotly pie charts and bar charts for source and monthly trend analysis.
-- **Interactive iTax Checklist**: A final preparation checklist to ensure data accuracy before filing on itax.kra.go.ke.
-- **Educational Insights**: Built-in guides explaining Kenyan tax rules (e.g., the 288k rule and why loans are non-taxable).
-- **Customizable Filters**: Exclude specific bank names, phone numbers, and registered names via the sidebar.
-- **Data Export**: Download your sanitized audit report as a CSV file for long-term record keeping.
+## 🚀 Key Features
 
-## Getting Started
+- **📂 Multi-Format Support**: Automatically extracts transaction data from both **M-Pesa PDF statements** and **CSV reports**.
+- **📊 Hustle vs. Noise Analysis**: Advanced metrics dashboard showing "Gross Money In" versus "Net Taxable Base" using the 'Rule of Thumb' logic.
+- **📈 Interactive Visualizations**: Dynamic **Plotly** pie charts and monthly trend bar charts for source and trend analysis.
+- **✅ Interactive iTax Checklist**: A final preparation checklist to ensure data accuracy before filing on `itax.kra.go.ke`.
+- **🎓 Educational Insights**: Built-in guides explaining Kenyan tax rules (e.g., the 288k annual tax-free threshold and why loans aren't income).
+- **🌓 Theme Support**: Fully compatible with both **Light and Dark modes** through Streamlit's native theme engine.
+- **🔒 Local-First Privacy**: Your PDF passwords and financial data never leave your browser. Processing happens entirely in your local session.
+
+---
+
+## 🛠️ How it Works (Categorization Logic)
+
+<details>
+<summary><b>🔍 View Advanced Categorization Methodology</b></summary>
+
+The "Sanitizer" uses a heuristic engine to classify inflows based on description keywords and transaction direction:
+
+1.  **Money-In Identification**: Identifies income indicators like `Received from`, `Transfer from bank`, and `Loan received`.
+2.  **Asset Transfer (Bank)**: Matches known Kenyan bank keywords (KCB, Equity, Sidian, I&M, etc.) to exclude your own bank-to-mobile movements.
+3.  **Loan/Credit (Non-Taxable)**: Detects lenders like M-Shwari, Fuliza, Tala, and the Hustler Fund. These are categorized as liabilities, not income.
+4.  **Asset Transfer (Mobile)**: Uses your registered names and phone number suffixes to identify self-transfers (moving money between your own lines).
+5.  **Exempt (Gambling Winnings)**: Identifies platforms like Sportpesa or Betika where withholding tax (20%) is already deducted at the source.
+6.  **Taxable Income**: The remaining "Clean" revenue that represents your actual business or freelance earnings.
+
+</details>
+
+---
+
+## 🏁 Getting Started
 
 ### Prerequisites
-
 - Python 3.8+
-- pip (Python package manager)
+- [Streamlit](https://streamlit.io/)
 
 ### Installation
 
-1. Clone this repository or download the source code.
-2. Install the required dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+1.  **Clone the Repository**
+    ```bash
+    git clone https://github.com/tilelvis/hustlampesa.git
+    cd hustlampesa
+    ```
 
-### Running the App
+2.  **Install Dependencies**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-Start the Streamlit application by running:
-```bash
-streamlit run app.py
-```
+3.  **Launch the Dashboard**
+    ```bash
+    streamlit run app.py
+    ```
 
-The app will open in your default web browser.
+---
 
-## How to Use
+## ⚖️ Professional Disclaimer & Data Privacy
+- **No Storage**: This application **does not store** your passwords or statement data. Once the session is closed, the data is wiped.
+- **Accuracy**: While tuned for Kenyan M-Pesa formats, this is an AI-assisted categorization tool. You are legally responsible for the accuracy of your KRA returns.
+- **Not Financial Advice**: For analytical and educational purposes only.
 
-1. **Configure Settings**: Use the sidebar to add your registered names, bank names, and any additional phone numbers you want to exclude from the taxable income calculation.
-2. **Upload Statement**: Upload your M-Pesa PDF statement or CSV report into the file uploader.
-3. **Analyze Results**: View your total money in, clean taxable income, and tax estimates.
-4. **Download Report**: Use the "Download Sanitized Report as CSV" button to save your data for your records or tax filing.
+---
 
-## License
+## 👨‍💻 Support & Engagement
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support & Engagement
-
-If you find this tool helpful, please consider:
+If this tool helped you organize your taxes, please consider:
 - ⭐ **Starring** the repository on [GitHub](https://github.com/tilelvis/hustlampesa)
-- 🤝 **Engaging** with the repository through issues or pull requests.
+- 🤝 **Engaging** with the project through issues or pull requests.
 
-*Developed by Elvis Tile.*
+**Developed by Elvis Tile.**
+*Licensed under the MIT License.*
