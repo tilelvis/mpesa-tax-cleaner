@@ -50,8 +50,8 @@ The **Mpesa Tax Cleaner** uses a heuristic engine to classify inflows based on d
 
 1.  **Clone the Repository**
     ```bash
-    git clone https://github.com/tilelvis/hustlampesa.git
-    cd hustlampesa
+    git clone https://github.com/tilelvis/mpesa-tax-cleaner.git
+    cd mpesa-tax-cleaner
     ```
 
 2.  **Install Dependencies**
