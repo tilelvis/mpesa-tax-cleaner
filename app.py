@@ -153,14 +153,14 @@ def show_disclaimer(expanded=False):
         """)
 
 def main():
-    st.set_page_config(page_title="Mpesa-Tax Sanitizer", page_icon="🇰🇪", layout="wide")
+    st.set_page_config(page_title="Mpesa Tax Cleaner", page_icon="🇰🇪", layout="wide")
 
     # Initialize session state for agreement
     if 'agreed' not in st.session_state:
         st.session_state.agreed = False
 
     if not st.session_state.agreed:
-        st.title("⚖️ Mpesa-Tax Sanitizer: Terms & Conditions")
+        st.title("⚖️ Mpesa Tax Cleaner: Terms & Conditions")
         st.markdown("""
         ### **🛡️ Your Privacy is Our Priority**
         Before you begin, please review and acknowledge our commitment to your privacy and the analytical nature of this tool.
@@ -181,7 +181,7 @@ def main():
     # --- Main Application Logic ---
     with st.expander("🔍 How the Categorization Works"):
         st.write("""
-        The **Mpesa-Tax Sanitizer** uses a heuristic engine to classify your M-Pesa inflows into six logical buckets:
+        The **Mpesa Tax Cleaner** uses a heuristic engine to classify your M-Pesa inflows into six logical buckets:
         1. **TAXABLE INCOME**: The "Clean" revenue that represents your actual business or freelance earnings.
         2. **ASSET TRANSFER (BANK)**: Movements to and from your own bank accounts (e.g., KCB, Equity).
         3. **ASSET TRANSFER (MOBILE)**: Self-transfers between your own M-Pesa lines.
@@ -190,7 +190,7 @@ def main():
         6. **Personal Expense**: Outflows that are not considered business revenue.
         """)
 
-    st.title("🇰🇪 Mpesa-Tax Sanitizer")
+    st.title("🇰🇪 Mpesa Tax Cleaner")
     st.markdown("""
     ### **Ready to clean your tax data?**
     Stop paying tax on your own transfers and loans. Upload your M-Pesa statement below to reveal your **Real Taxable Income** in seconds.
